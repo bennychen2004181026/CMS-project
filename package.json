@@ -4,7 +4,7 @@
   "description": "A practice project for content manager system",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js -L"
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
