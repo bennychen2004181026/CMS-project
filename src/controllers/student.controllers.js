@@ -1,3 +1,5 @@
+const Student = require('../models/student.model');
+
 const addStudent = (req,res) => {};
 const getAllStudents = (req,res) => {
     res.json({})
