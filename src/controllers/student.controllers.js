@@ -59,6 +59,7 @@ const deleteStudentsById = async (req, res) => {
     res.status(404).json({ error: 'Student not found' });
     return;
   }
+  res.sendStatus(204);
  };
 
 module.exports = {
