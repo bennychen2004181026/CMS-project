@@ -1,8 +1,8 @@
-const {Router} =require('express')
+const { Router } = require('express')
 const { getAllStudents, getStudentsById, updateStudentsById, deleteStudentsById, addStudent } = require('../controllers/student.controllers')
 
 
-const studentRouter =Router() 
+const studentRouter = Router()
 
 studentRouter.get('/', getAllStudents)
 studentRouter.get('/:id', getStudentsById)
