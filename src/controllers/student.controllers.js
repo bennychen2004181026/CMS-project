@@ -18,7 +18,8 @@ const getAllStudents = async (req, res) => {
   //Student.find() ->Query
   //Query.sort() =>Query
   //Builder pattern
-
+  // the .exec() method can ensure the return result is a promise
+  // otherwise the returning object is a mongoose query object
   const students = await Student.find().exec();
   res.json(students);
 };
@@ -32,7 +33,25 @@ const getStudentsById = async (req, res) => {
   }
   res.json(student)
 };
-const updateStudentsById = async (req, res) => { };
+const updateStudentsById = async (req, res) => {
+  const { id } = req.params;
+  const { firstName, lastName, email } = req.body;
+  //{new:true} is for returning the new studnet instance
+  const student = await Student.findByIdAndUpdate(
+    id,
+    {
+      firstName,
+      lastName,
+      email,
+    },
+    { new: true }
+  ).exec();
+  if (!student) {
+    res.status(404).json({ error: "Student not found" })
+    return
+  }
+res.json(student)
+};
 const deleteStudentsById = async (req, res) => { };
 
 module.exports = {
