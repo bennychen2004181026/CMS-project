@@ -52,7 +52,14 @@ const updateStudentsById = async (req, res) => {
   }
 res.json(student)
 };
-const deleteStudentsById = async (req, res) => { };
+const deleteStudentsById = async (req, res) => {
+  const { id } = req.params;
+  const student = await Student.findByIdAndDelete(id).exec()
+  if (!student) {
+    res.status(404).json({ error: 'Student not found' });
+    return;
+  }
+ };
 
 module.exports = {
   addStudent,
