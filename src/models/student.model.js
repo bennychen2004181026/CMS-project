@@ -12,6 +12,12 @@ studentSchema = new Schema({
   email: {
     type: String,
   },
+  courses:[
+    {
+      type:String,
+      ref:"Course"
+    }
+  ]
 });
 
 const Student = model("Student", studentSchema);

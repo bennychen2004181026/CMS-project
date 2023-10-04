@@ -32,6 +32,7 @@ const updateCourseById = async (req, res) => {
     },
     {
       new: true,
+      // runValidators:true
     }
   ).exec();
   if (!course) {
