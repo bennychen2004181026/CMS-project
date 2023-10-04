@@ -17,4 +17,12 @@ module.exports = model('Course', new Schema({
         type: String,
         default: "Course description"
     }
-}))
+},
+    {
+        timestamps: true,
+        //If I want the alias field to be send in the response
+        // then use the following API
+        // toJSON: {
+        //     virtuals: true
+        // }
+    }))
