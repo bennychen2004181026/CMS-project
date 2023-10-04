@@ -13,11 +13,15 @@ const getAllCourses = async (req, res) => {
 };
 const getCourseById = async (req, res) => {
   const { id } = req.params;
-  const course = await Course.findById(id).exec();
+  const course = await Course.findById(id)
+  // effectively fetch the related documents 
+    .populate('students', 'firstName lastName email')
+    .exec();
   if (!course) {
     res.status(404).json({ error: 'Course not found' });
     return;
   }
+  console.log(course)
   res.json(course);
 };
 const updateCourseById = async (req, res) => {
