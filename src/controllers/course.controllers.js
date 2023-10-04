@@ -1,4 +1,5 @@
 const Course = require('../models/course.model');
+const Student = require('../models/student.model');
 
 
 const addCourse = async (req, res) => {
@@ -14,7 +15,7 @@ const getAllCourses = async (req, res) => {
 const getCourseById = async (req, res) => {
   const { id } = req.params;
   const course = await Course.findById(id)
-  // effectively fetch the related documents 
+    // effectively fetch the related documents 
     .populate('students', 'firstName lastName email')
     .exec();
   if (!course) {
@@ -52,6 +53,17 @@ const deleteCourseById = async (req, res) => {
     res.status(404).json({ error: 'Course not found' });
     return;
   }
+  //update multiple documents that meet the given filter condition, this can help eliminate the unnecessary fields
+  await Student.updateMany(
+    {
+      courses: course._id,
+    },
+    {
+      $pull: {
+        courses: course._id,
+      },
+    }
+  ).exec();
   res.sendStatus(204);
 };
 

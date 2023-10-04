@@ -60,6 +60,18 @@ const deleteStudentsById = async (req, res) => {
     res.status(404).json({ error: 'Student not found' });
     return;
   }
+  //update multiple documents that meet the given filter condition, this can help eliminate the unnecessary fields
+
+  await Course.updateMany(
+    {
+      students: student._id,
+    },
+    {
+      $pull: {
+        students: student._id,
+      },
+    }
+  ).exec();
   res.sendStatus(204);
 };
 
