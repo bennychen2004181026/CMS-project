@@ -22,9 +22,18 @@ const getAllStudents = async (req, res) => {
   const students = await Student.find().exec();
   res.json(students);
 };
-const getStudentsById = (req, res) => { };
-const updateStudentsById = (req, res) => { };
-const deleteStudentsById = (req, res) => { };
+const getStudentsById = async (req, res) => {
+  const { id } = req.params;
+  // findById is a mongoose library method
+  const student = await Student.findById(id).exec();
+  if (!student) {
+    res.status(404).json({ error: "Student not found" })
+    return//ensure the following won't be executed
+  }
+  res.json(student)
+};
+const updateStudentsById = async (req, res) => { };
+const deleteStudentsById = async (req, res) => { };
 
 module.exports = {
   addStudent,

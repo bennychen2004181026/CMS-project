@@ -15,6 +15,7 @@ studentSchema = new Schema({
 });
 
 const Student = model("Student", studentSchema);
-// mongoose 会将名字Student 转换为小写并添加s
+// mongoose transforms Student into lower case and turn it into plural
+
 
 module.exports = Student;
