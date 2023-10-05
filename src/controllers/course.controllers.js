@@ -1,10 +1,30 @@
 const Course = require('../models/course.model');
 const Student = require('../models/student.model');
+const Joi = require('joi');
 
 
 const addCourse = async (req, res) => {
-  const { code, name, description } = req.body;
-  const course = new Course({ code, name, description });
+// use Joi to create a Joi schema and validate
+  const schema = Joi.object({
+    name: Joi.string().required(),
+    description: Joi.string().optional(),
+    code: Joi.string()
+      .uppercase()
+// view regex101.com to explore the magic of regex
+      .regex(/^[a-zA-z]+[0-9]+$/)
+      .message('Invalid code format, expecting something like COMP101')
+      .required(),
+  });
+  const validBody = await schema.validateAsync(req.body, {
+  // allow extra body data
+    allowUnknown: true,
+    stripUnknown: true,
+  });
+
+  // const { code, name, description } = req.body;
+  // const course = new Course({ code, name, description });
+
+  const course = new Course(validBody);
   await course.save();
   res.json(course);
 };
