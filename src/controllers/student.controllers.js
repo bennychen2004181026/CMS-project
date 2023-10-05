@@ -1,6 +1,41 @@
 const Student = require("../models/student.model");
 const Course = require("../models/course.model");
 
+/**
+ * Handle errors -> handle async errors
+ * 1. try catch -> async await
+ * try {
+ *    xxxxx
+ * } catch(e) {
+ *    // or handle it directly
+ *    next(e);
+ * }
+ *
+ * 2. .catch -> promise
+ * Student.find().exec().then().catch(e => next(e));
+ *
+ * 3. callback
+ * Student.find().exec((err, students)=>{
+ *    if (err) {
+ *       handle error
+ *       next(err);
+ *       return
+ *    }
+ * })
+ */
+// const catchAllErrors = (routeHandler) => {
+//   return async (req, res,next) => {
+//     try {
+//       await routeHandler(req, res, next);
+//     } catch(e) {
+//       next(e);
+//     }
+//   }
+// }
+
+// a out of dated but still useful package tool for dealing with async await error:
+// express-async-errors
+
 const addStudent = async (req, res) => {
   const { firstName, lastName, email } = req.body
   //data validation
