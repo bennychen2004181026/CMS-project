@@ -1,5 +1,6 @@
 const Student = require("../models/student.model");
 const Course = require("../models/course.model");
+const NotFoundException = require('../exceptions/NotFoundException');
 
 /**
  * Handle errors -> handle async errors
@@ -64,8 +65,10 @@ const getStudentsById = async (req, res) => {
   // findById is a mongoose library method
   const student = await Student.findById(id).exec();
   if (!student) {
-    res.status(404).json({ error: "Student not found" })
-    return//ensure the following won't be executed
+    // throw new Error("xxxxx");
+    throw new NotFoundException('Student not found');
+    // res.status(404).json({ error: "Student not found" })
+    // return//ensure the following won't be executed
   }
   res.json(student)
 };

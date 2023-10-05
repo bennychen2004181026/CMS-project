@@ -17,7 +17,7 @@ app.use(express.json());
 app.use('/v1', v1Router)
 // the order sequence of the middlewares matters
 app.use(validationError);
-// app.use(notFoundError);
+app.use(notFoundError);
 app.use(unknownError);
 
 connectToDB().then(() => {
