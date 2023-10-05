@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const Joi = require('joi');
 
 studentSchema = new Schema({
   firstName: {
@@ -11,11 +12,23 @@ studentSchema = new Schema({
   },
   email: {
     type: String,
+    //use mongoose default validate api to custom validation
+    validate: [
+      {
+        validator: (email) => {
+          // regex
+          // validator package:Joi(recommanded), yup(recommanded), validator.js express-validator
+          return Joi.string().email().validate(email).error === undefined;
+        },
+        // return false -> invalid -> return error msg
+        msg: 'Invalid email format',
+      },
+    ]
   },
-  courses:[
+  courses: [
     {
-      type:String,
-      ref:"Course"
+      type: String,
+      ref: "Course"
     }
   ]
 });
