@@ -8,6 +8,7 @@ const connectToDB = require('./utils/db');
 const unknownError = require('./middleware/error/unknownError');
 const validationError = require('./middleware/error/validationError');
 const notFoundError = require('./middleware/error/notFoundError');
+const castError = require('./middleware/error/castError');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -16,6 +17,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/v1', v1Router)
 // the order sequence of the middlewares matters
+app.use(castError);
 app.use(validationError);
 app.use(notFoundError);
 app.use(unknownError);
